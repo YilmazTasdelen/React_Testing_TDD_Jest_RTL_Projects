@@ -48,15 +48,17 @@ test('popover respons to hover', async () => {
     expect(nullPopover).not.toBeInTheDocument();
 
     // popover appears upon mause over of checkbox label
-    const termAndConditions = screen.getByText(/terms and conditions/i);
+    const termAndConditions = screen.queryByText(/terms and conditions/i);
     await user.hover(termAndConditions);
 
-    const popover = screen.getByText(/no ice cream will actually be delivered/i);
+    const popover = screen.queryByText(/no ice cream will actually be delivered/i);
     expect(popover).toBeInTheDocument();
 
     // popover disappears when mouse out
-    await user.unhover(termAndConditions);
-    await waitForElementToBeRemoved(() =>
-        screen.getByText(/no ice cream will actually be delivered/i));
-    //expect(nullPopoverAgain).not.toBeInTheDocument();
+    user.unhover(termAndConditions);
+    const nullPopoverAgain = screen.queryByText(/no ice cream will actually be delivered/i);
+    await waitForElementToBeRemoved(nullPopoverAgain);
+
+    //ad await to user.unhover(termAndConditions); and use with expect(nullPopoverAgain).not.toBeInTheDocument();
+    // or call unhover async without await with  await waitForElementToBeRemoved(nullPopoverAgain);
 });

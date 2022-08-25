@@ -7,6 +7,12 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 export default function SummaryForm() {
     const [tcChecked, setTcChecked] = useState(false);
 
+    const popover = (
+        <Popover id="termsandconditions-popover">
+            No ice cream will actually be delivered
+        </Popover>
+    );
+
     const checkboxLabel = (
         <span>
             I agree to
@@ -14,13 +20,6 @@ export default function SummaryForm() {
                 <span style={{ color: 'blue' }}> Terms and Conditions</span>
             </OverlayTrigger>
         </span>
-    );
-
-    const popover = (
-        <Popover id="termsandconditions-popover">
-            {/* <Popover.Body>No ice cream will actually be delivered</Popover.Body> */}
-            No ice cream will actually be delivered
-        </Popover>
     );
 
     return (
