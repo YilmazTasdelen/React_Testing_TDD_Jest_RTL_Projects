@@ -41,17 +41,21 @@ test('popover respons to hover', async () => {
     const user = userEvent.setup();
     render(<SummaryForm />);
 
-    const checkbox = screen.getByRole('checkbox', {
-        name: /terms and conditions/i
-    });
+    //popover stats out hidden
+    const nullPopover = screen.queryByText(
+        /no ice cream will actually be delivered/i
+    );
+    expect(nullPopover).not.toBeInTheDocument();
 
-    const confirmButton = screen.getByRole('button', {
-        name: /confirm order/i
-    });
+    // popover appears upon mause over of checkbox label
+    const termAndConditions = screen.getByText(/terms and conditions/i);
+    await user.hover(termAndConditions);
 
-    await user.click(checkbox);
-    expect(confirmButton).toBeEnabled();
+    const popover = screen.getByText(/no ice cream will actually be delivered/i);
+    expect(popover).toBeInTheDocument();
 
-    await user.click(checkbox);
-    expect(confirmButton).toBeDisabled();
+    // popover disappears when mouse out
+    await user.unhover(termAndConditions);
+    const nullPopoverAgain = screen.getByText(/no ice cream will actually be delivered/i);
+    expect(nullPopoverAgain).not.toBeInTheDocument();
 });
