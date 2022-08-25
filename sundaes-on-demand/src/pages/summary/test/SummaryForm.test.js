@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
 import SummaryForm from '../SummaryForm';
 import userEvent from '@testing-library/user-event';
 
@@ -56,6 +56,7 @@ test('popover respons to hover', async () => {
 
     // popover disappears when mouse out
     await user.unhover(termAndConditions);
-    const nullPopoverAgain = screen.getByText(/no ice cream will actually be delivered/i);
-    expect(nullPopoverAgain).not.toBeInTheDocument();
+    await waitForElementToBeRemoved(() =>
+        screen.getByText(/no ice cream will actually be delivered/i));
+    //expect(nullPopoverAgain).not.toBeInTheDocument();
 });

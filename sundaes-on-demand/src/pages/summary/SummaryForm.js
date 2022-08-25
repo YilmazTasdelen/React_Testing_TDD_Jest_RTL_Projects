@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Popover from 'react-bootstrap/Popover';
-import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 export default function SummaryForm() {
@@ -19,7 +18,8 @@ export default function SummaryForm() {
 
     const popover = (
         <Popover id="termsandconditions-popover">
-            <Popover.Body>No ice cream will actually be delivered</Popover.Body>
+            {/* <Popover.Body>No ice cream will actually be delivered</Popover.Body> */}
+            No ice cream will actually be delivered
         </Popover>
     );
 
