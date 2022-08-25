@@ -8,6 +8,8 @@ https://www.w3.org/TR/wai-aria/#role_definitions
 
 https://testing-library.com/docs/queries/about/#priority
 
+https://testing-library.com/docs/react-testing-library/cheatsheet/
+
 when to use unit tests ? <br/>
 for our example replacecamelcasewithspace function is very simple and it could be covered by functional test on button.
 
