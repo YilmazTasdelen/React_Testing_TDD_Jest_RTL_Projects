@@ -10,6 +10,8 @@ https://testing-library.com/docs/queries/about/#priority
 
 https://testing-library.com/docs/react-testing-library/cheatsheet/
 
+https://github.com/testing-library/user-event
+
 when to use unit tests ? <br/>
 for our example replacecamelcasewithspace function is very simple and it could be covered by functional test on button.
 
