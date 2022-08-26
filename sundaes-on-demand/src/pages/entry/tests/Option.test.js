@@ -29,7 +29,7 @@ test('display image for each toppings option form server', async () => {
     //we use await findallby instead of screen.getAllByRole because images came from asyncapi call 
     const toppingImages = await screen.findAllByRole('img',
         {
-            name: /toppping$/i // $ is regular expration that string end with scoop
+            name: /topping$/i // $ is regular expration that string end with scoop
         });
 
     // our mock service return 3 option 
@@ -37,6 +37,9 @@ test('display image for each toppings option form server', async () => {
 
     //confirm alt text of images
     const altText = toppingImages.map((element) => element.alt);
-    expect(altText).toEqual(['Cherries tooping', 'M&Ms tooping', 'Hot fudge tooping'])
+    expect(altText).toEqual([
+        "Cherries topping",
+        "M&Ms topping",
+        "Hot fudge topping"])
 
 });
