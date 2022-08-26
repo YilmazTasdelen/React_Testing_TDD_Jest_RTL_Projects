@@ -2,11 +2,12 @@ import { render, screen } from '@testing-library/react';
 
 import Option from '../Options';
 
-test('display image for each scoop option form server', () => {
+test('display image for each scoop option form server', async () => {
     render(<Option optionType="scoops" />);
 
     //find images
-    const scoopImages = screen.getAllByRole('img',
+    //we use await findallby instead of screen.getAllByRole because images came from asyncapi call 
+    const scoopImages = await screen.findAllByRole('img',
         {
             name: /scoop$/i // $ is regular expration that string end with scoop
         });
