@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { UserEvent } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event'
 import Options from '../Options';
+import { OrderdetailProvider } from '../../../contexts/OrderDetail';
 
-test('update scoop subtotal when scoops change', () => {
-    render(<Options optionType="scoops" />);
+test('update scoop subtotal when scoops change', async () => {
+    render(<Options optionType="scoops" />, { wrapper: OrderdetailProvider });
 
     //make sure total starts out $0.00
     // for the partial match exact:false
@@ -15,10 +16,10 @@ test('update scoop subtotal when scoops change', () => {
     //update vanilla scoops to 1 and check the subtotal
     const vanillaInput = await screen.findByRole(
         'spinbutton',
-        { name: 'Vanilla ' }
+        { name: 'Vanilla' }
     );
-    userEvent.clear(vanillaInput);
-    userEvent.type(vanillaInput, '1');
+    await userEvent.clear(vanillaInput);
+    await userEvent.type(vanillaInput, '1');
     expect(scoopSubtotal).toHaveTextContent('2.00');
 
 
@@ -27,9 +28,9 @@ test('update scoop subtotal when scoops change', () => {
         'spinbutton',
         { name: 'Chocolate' }
     );
-    userEvent.clear(chocolateInput);
-    userEvent.type(chocolateInput, '1');
-    expect(scoopSubtotal).toHaveTextContent('6.00');
+    await userEvent.clear(chocolateInput);
+    await userEvent.type(chocolateInput, '1');
+    expect(scoopSubtotal).toHaveTextContent('4.00');
 
 
 });
