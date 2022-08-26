@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-
 import Option from '../Options';
+import { OrderdetailProvider } from '../../../contexts/OrderDetail';
 
 test('display image for each scoop option form server', async () => {
-    render(<Option optionType="scoops" />);
+    render(<Option optionType="scoops" />, { wrapper: OrderdetailProvider });
 
     //find images
     //we use await findallby instead of screen.getAllByRole because images came from asyncapi call 
@@ -23,7 +23,7 @@ test('display image for each scoop option form server', async () => {
 
 
 test('display image for each toppings option form server', async () => {
-    render(<Option optionType="toppings" />);
+    render(<Option optionType="toppings" />, { wrapper: OrderdetailProvider });
 
     //find images
     //we use await findallby instead of screen.getAllByRole because images came from asyncapi call 

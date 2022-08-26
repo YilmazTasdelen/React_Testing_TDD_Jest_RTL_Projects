@@ -1,8 +1,9 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '../../../test-utils/testing-library-utils';
 import OrderEntry from '../OrderEntry';
 //we  need these two for override some mock methods. we override them for error schenarios.
 import { rest } from 'msw';
 import { server } from '../../../mocks/server';
+import { OrderdetailProvider } from '../../../contexts/OrderDetail';
 
 
 test.only('handles eeror for scoops and topping routes', async () => {
@@ -17,7 +18,7 @@ test.only('handles eeror for scoops and topping routes', async () => {
     );
 
     // then render the component and test
-    render(<OrderEntry />);
+    render(<OrderEntry />, { wrapper: OrderdetailProvider });
 
     // const alerts = await screen.findAllByRole('alert', {
     //     name: 'An unexpected error ocurred. Please try again later.'

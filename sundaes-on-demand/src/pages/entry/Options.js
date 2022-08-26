@@ -4,10 +4,14 @@ import Row from 'react-bootstrap/Row';
 import ScoopOption from './ScoopOption';
 import ToppingOption from './ToppingOption';
 import AlertBanner from '../common/AlertBanner';
+import { pricePerItem } from '../../constants';
+import { useOrderDetails } from '../../contexts/OrderDetail';
+
 
 export default function Options({ optionType }) {
     const [items, setItems] = useState([]);
     const [error, setError] = useState(false);
+    const [OrderDetails, updateItemCount] = useOrderDetails();
 
     // optionType is 'scoops' or 'toppings'
     useEffect(() => {
@@ -25,14 +29,24 @@ export default function Options({ optionType }) {
 
     // TODO: replace `null` with ToppingOption when available
     const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
-
+    const tittle = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
     const optionItems = items.map((item) => (
         <ItemComponent
             key={item.name}
             name={item.name}
             imagePath={item.imagePath}
+            updateItemCount={(itemName, newItemCount) =>
+                updateItemCount(itemName, newItemCount, optionType)
+            }
         />
     ));
 
-    return <Row>{optionItems}</Row>;
+    return (
+        <>
+            <h2>{tittle}</h2>
+            <p>{pricePerItem[optionType]} each</p>
+            <p><span>{tittle} total : {OrderDetails.totals[optionType]}</span></p>
+            <Row>{optionItems}</Row>
+        </>
+    );
 }
