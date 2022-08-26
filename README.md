@@ -14,6 +14,10 @@ https://github.com/testing-library/user-event
 
 https://testing-library.com/docs/guide-which-query
 
+https://mswjs.io/docs/getting-started/mocks/rest-api
+
+https://mswjs.io/
+
 
 
 when to use unit tests ? <br/>
