@@ -2,12 +2,14 @@ import {
     createContext,
     useContext,
     useState,
-    useMemo
+    useMemo,
+    useEffect
 } from 'react';
+import { pricePerItem } from '../constants/index';
 
 const OrderDetails = createContext();
 
-function useOrderDetails() {
+export function useOrderDetails() {
     const context = useContext(OrderDetails);
 
     if (!context) {
@@ -17,11 +19,39 @@ function useOrderDetails() {
     return context;
 }
 
-function OrderdetailProvider(props) {
+function calculateSubTotal(optionType, optionCounts) {
+    let optionCount = 0;
+    for (const count of optionCounts[optionType].values()) {
+        optionCount += count;
+    }
+    return optionCount * pricePerItem[optionType];
+}
+
+
+
+export function OrderdetailProvider(props) {
     const [optionCounts, setOptionCounts] = useState({
         scoops: new Map(),
         toppings: new Map()
     });
+
+    const [totals, setTotals] = useState({
+        scoops: 0,
+        toppings: 0,
+        grandTotal: 0
+    });
+
+    useEffect(() => {
+        const scoopsSubtotal = calculateSubTotal("scoops", optionCounts);
+        const toppingsSubtotal = calculateSubTotal("toppings", optionCounts);
+        const grandTotal = scoopsSubtotal + toppingsSubtotal;
+        setTotals({
+            scoops: scoopsSubtotal,
+            toppings: toppingsSubtotal,
+            grandTotal
+        });
+    }, [optionCounts])
+
     //getter: object  containing option count for scoops and toppings,subtotals
     //setter: update option count 
     const value = useMemo(() => {
@@ -33,7 +63,7 @@ function OrderdetailProvider(props) {
             ıptionCountsMap.set(itemName, parseInt(newItemCount));
             setOptionCounts(newOptionCounts);
         }
-        return [{ ...optionCounts }, updateItemCount];
-    }, [optionCounts]);
+        return [{ ...optionCounts, totals }, updateItemCount];
+    }, [optionCounts, totals]);
     return <OrderDetails.Provider value={value} {...props} />
 }
