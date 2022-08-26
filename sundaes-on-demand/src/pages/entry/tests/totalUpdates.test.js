@@ -1,10 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '../../../test-utils/testing-library-utils';
 import userEvent from '@testing-library/user-event'
 import Options from '../Options';
 import { OrderdetailProvider } from '../../../contexts/OrderDetail';
 
 test('update scoop subtotal when scoops change', async () => {
-    render(<Options optionType="scoops" />, { wrapper: OrderdetailProvider });
+    //we dont need render option { wrapper: OrderdetailProvider } after we override render method for our 
+    //context at  test-utils/testing-library-utils for 
+    render(<Options optionType="scoops" />);
 
     //make sure total starts out $0.00
     // for the partial match exact:false

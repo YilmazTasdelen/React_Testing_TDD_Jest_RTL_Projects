@@ -1,9 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '../../../test-utils/testing-library-utils';
 import Option from '../Options';
 import { OrderdetailProvider } from '../../../contexts/OrderDetail';
 
 test('display image for each scoop option form server', async () => {
-    render(<Option optionType="scoops" />, { wrapper: OrderdetailProvider });
+    //we dont need render option { wrapper: OrderdetailProvider } after we override render method for our 
+    //context at  test-utils/testing-library-utils for 
+    render(<Option optionType="scoops" />);
 
     //find images
     //we use await findallby instead of screen.getAllByRole because images came from asyncapi call 
